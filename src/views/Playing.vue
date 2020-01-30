@@ -1,47 +1,120 @@
 <template>
   <div class="play">
     <header>
-      <div class="iconfont icon-jiantouarrow483"></div>
+      <div class="iconfont icon-jiantouarrow483" @click="$router.go(-1)"></div>
       <div class="title">
-        <h3>吻别</h3>
-        <span>杨千嬅</span>
+        <h3>{{songData.name}}</h3>
+        <span>{{artist}}</span>
       </div>
       <div class="right"></div>
     </header>
     <div class="cover">
       <div class="cd-wrapper">
-        <div class="cd">
-          <img src="http://p1.music.126.net/iMVw_gXREpLPBDjnVM3q_w==/109951164546681358.jpg" alt />
+        <div class="cd" :class="{'playing':isPaused,'':!isPaused}">
+          <img :src="songData.al.picUrl" alt />
         </div>
       </div>
     </div>
     <div class="status">
-      <div class="time-l">0:50</div>
-      <div class="progress-bar"></div>
-      <div class="time-r">3:16</div>
+      <div class="time-l">{{currentTime}}</div>
+      <div class="progress-bar">
+        <div class="progress-bar-status" :style="{'width': `${process}%`}"></div>
+      </div>
+      <div class="time-r">{{totalTime}}</div>
     </div>
     <div class="control">
       <span class="iconfont icon-ListCycleliebiaoxunhuan"></span>
       <span class="iconfont icon-Lastshangyiqu"></span>
-      <span class="iconfont icon-Playbofang playStatus"></span>
-      <span class="iconfont icon-Nextxiayiqu"></span>
+      <span
+        :class="['iconfont','playStatus',{'icon-Playbofang':isPaused,'icon-Pausezanting':!isPaused}]"
+        @click="togglePlay"
+      ></span>
+      <span class="iconfont icon-Nextxiayiqu" @click="nextSong"></span>
       <span class="iconfont icon-Likexihuan"></span>
     </div>
     <audio
-      src="http://m10.music.126.net/20200130145705/9937f7f62e022145d235a73818dac280/ymusic/075a/0352/0e08/008fce394f48176e3a5d9b8fe0744398.mp3"
+      :src="songLink"
+      ref="audioPlay"
+      autoplay="autoplay"
+      @canplay="getTotal"
+      @timeupdate="timeUpdate"
     ></audio>
   </div>
 </template>
 
 <script>
-export default {}
+import { getSongInfo,getSongUrl } from '../api/song'
+export default {
+  data() {
+    return {
+      audioPlay: null,
+      isPaused: true,
+      totalTime: '00:00',
+      currentTime: '00:00',
+      totalTimeSecond: 0,
+      process: 0,
+      artist:'',
+      songData:{
+          al:{},
+          name
+      },
+      songLink:''
+    }
+  },
+  mounted() {
+    this.audioPlay = this.$refs.audioPlay
+    this.getSongData(this.$route.query.id)
+    this.getSongLink(this.$route.query.id)
+    this.getTotal()
+  },
+  methods: {
+    async getSongData(id) {
+      const res = await getSongInfo(id)
+      this.songData = res.data.songs[0]
+      this.artist = res.data.songs[0].ar[0].name
+      console.log(res);
+    },
+    async getSongLink(id) {
+      const res = await getSongUrl(id)
+    //   console.log(res)
+      this.songLink = res.data.data[0].url
+    },
+    togglePlay() {
+      this.isPaused = !this.isPaused
+      if (this.isPaused) {
+        this.audioPlay.play()
+      } else {
+        this.audioPlay.pause()
+      }
+    },
+    timeFormat(times) {
+      let minute = Math.floor((times % 3600) / 60)
+      let second = Math.floor(times % 60)
+      minute = minute < 10 ? '0' + minute : minute
+      second = second < 10 ? '0' + second : second
+      return `${minute}:${second}`
+    },
+    getTotal() {
+      this.totalTime = this.timeFormat(this.audioPlay.duration)
+      this.totalTimeSecond = this.audioPlay.duration
+    },
+    timeUpdate() {
+      this.currentTime = this.timeFormat(this.audioPlay.currentTime)
+      this.process = (this.audioPlay.currentTime / this.totalTimeSecond) * 100
+    },
+    nextSong(){
+        
+    // this.getSongData(this.$route.query.id)
+    // this.getSongLink(this.$route.query.id)
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .play {
-  background: #000;
-  opacity: 0.4;
-  height: 100vh;
+  background: #666869;
+  height: 100%;
   header {
     padding: 0 15px;
     height: 50px;
@@ -110,17 +183,22 @@ export default {}
 }
 
 .status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:34px 36px 0px;
-    color: #fff;
-    font-size: 12px;
-    .progress-bar{
-        height: 4px;
-        width: 240px;
-        background-color: #353535;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34px 36px 5px;
+  color: #fff;
+  font-size: 12px;
+  .progress-bar {
+    height: 4px;
+    width: 240px;
+    background-color: #353535;
+    margin: 0 10px;
+    .progress-bar-status {
+      background-color: #d44439;
+      height: 100%;
     }
+  }
 }
 
 .control {
