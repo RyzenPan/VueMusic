@@ -1,0 +1,219 @@
+{
+  "id": "1622910",
+  "name": "Music",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "608317",
+      "name": "箭头",
+      "font_class": "jiantouarrow483",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "1191697",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "12575436",
+      "name": "Disc 光盘",
+      "font_class": "Discguangpan",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "12575437",
+      "name": "Album 专辑",
+      "font_class": "Albumzhuanji",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "12575438",
+      "name": "Download 下载",
+      "font_class": "Downloadxiazai",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "12575439",
+      "name": "Like 喜欢",
+      "font_class": "Likexihuan",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "12575440",
+      "name": "Headphone 耳机",
+      "font_class": "Headphoneerji",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "12575441",
+      "name": "Earbuds 耳塞",
+      "font_class": "Earbudsersai",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "12575442",
+      "name": "AudioTape 录音带",
+      "font_class": "AudioTapeluyindai",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "12575443",
+      "name": "Mute 静音",
+      "font_class": "Mutejingyin",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "12575444",
+      "name": "Music 音乐",
+      "font_class": "Musicyinle",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "12575445",
+      "name": "ListCycle 列表循环",
+      "font_class": "ListCycleliebiaoxunhuan",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "12575446",
+      "name": "Last 上一曲",
+      "font_class": "Lastshangyiqu",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "12575447",
+      "name": "Microphone 麦克风",
+      "font_class": "Microphonemaikefeng",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "12575448",
+      "name": "Phonograph 留声机",
+      "font_class": "Phonographliushengji",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "12575449",
+      "name": "Loudspeaker 音响",
+      "font_class": "Loudspeakeryinxiang",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "12575450",
+      "name": "Next 下一曲",
+      "font_class": "Nextxiayiqu",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "12575451",
+      "name": "Radio 电台",
+      "font_class": "Radiodiantai",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "12575452",
+      "name": "Play 播放",
+      "font_class": "Playbofang",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "12575453",
+      "name": "Setting 设置",
+      "font_class": "Settingshezhi",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "12575454",
+      "name": "RandomPlay 随机播放",
+      "font_class": "RandomPlaysuijibofang",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "12575455",
+      "name": "SingleCycle 单曲循环",
+      "font_class": "SingleCycledanquxunhuan",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "12575456",
+      "name": "Volume 音量",
+      "font_class": "Volumeyinliang",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "12575457",
+      "name": "Pause 暂停",
+      "font_class": "Pausezanting",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "12575458",
+      "name": "Save 收藏",
+      "font_class": "Saveshoucang",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "12575459",
+      "name": "PlayList 播放列表",
+      "font_class": "PlayListbofangliebiao",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "12575460",
+      "name": "SoundWave 声波",
+      "font_class": "SoundWaveshengbo",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "12575461",
+      "name": "Synchronization 同步",
+      "font_class": "Synchronizationtongbu",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "12575462",
+      "name": "Voice 语音",
+      "font_class": "Voiceyuyin",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "12575463",
+      "name": "SongList 歌单",
+      "font_class": "SongListgedan",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    }
+  ]
+}

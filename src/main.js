@@ -3,6 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import "./utils/reset.css"
+import "./static/iconfont.css"
+import 'vant/lib/index.css';
+import { Swipe, SwipeItem } from 'vant'
+
+Vue.use(Swipe)
+Vue.use(SwipeItem)
+
 Vue.config.productionTip = false
 
 new Vue({
