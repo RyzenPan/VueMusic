@@ -1,19 +1,19 @@
-# music
+# music base on Vue-cli
 
-## Project setup
+> 项目基于vue，接口使用网易云音乐接口，是一个运行在web端的项目
+
+## 安装依赖
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 运行项目
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 打包上线
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

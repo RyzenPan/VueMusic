@@ -13,7 +13,17 @@ export const getSongUrl = (id) => {
     return axios({
         url: '/song/url',
         params:{
-            id:id
+            id
+        }
+    })
+}
+
+
+export const getSongList = (id) => {
+    return axios({
+        url: '/playlist/detail',
+        params:{
+            id
         }
     })
 }

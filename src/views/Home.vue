@@ -43,6 +43,7 @@ export default {
     async getSongData() {
       const res = await getPersonalized()
       this.personalized = res.data.result
+      console.log(this.personalized);
       const res1 = await getNewsong()
       this.newsong = res1.data.result
     }
