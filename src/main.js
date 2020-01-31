@@ -5,12 +5,12 @@ import store from './store'
 
 import "./utils/reset.css"
 import "./static/iconfont.css"
-import 'vant/lib/index.css';
-import { Swipe, SwipeItem, Icon } from 'vant'
 
-Vue.use(Swipe)
-Vue.use(SwipeItem)
-Vue.use(Icon)
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+Vue.use(Vant);
+
 
 Vue.config.productionTip = false
 

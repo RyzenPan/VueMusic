@@ -1,25 +1,30 @@
 <template>
-   <div class="slider">
-      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item,index) in bannerDate" :key="index"><img :src="item.imageUrl" alt="" @click="goPlaying(item.targetId)"></van-swipe-item>
+  <div class="slider">
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="(item,index) in bannerDate" :key="index">
+        <img :src="item.imageUrl" alt @click="goPlaying(item.targetId)" />
+      </van-swipe-item>
     </van-swipe>
-   </div>
+  </div>
 </template>
 
 <script>
 export default {
-  props:{
-    bannerDate:{
-      type:Array,
-      default:[]
+  props: {
+    bannerDate: {
+      type: Array,
+      default: []
     }
   },
-  methods:{
-    goPlaying(id){
-      this.$router.push({path:"/play",query:{id}})
+  methods: {
+    goPlaying(id) {
+      this.$router.push({ path: "/play", query: { id } });
     }
+  },
+  mounted() {
+    console.log(this.bannerDate);
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -35,5 +40,4 @@ export default {
   margin: 0 10px;
   margin-bottom: 10px;
 }
-
 </style>

@@ -1,21 +1,22 @@
 <template>
   <div>
     <div class="header">
-      <span class="iconfont icon-SongListgedan"></span>
+      <span class="iconfont icon-SongListgedan" @click="$router.push({path:'/user'})"></span>
       <div class="logo">Music</div>
-      <span class="iconfont icon-Musicyinle"></span>
+      <span class="iconfont icon-Musicyinle" @click="$router.push({path:'/search'})"></span>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="less" scoped>
 .header {
   height: 44px;
   display: flex;
+  background-color: #d44439;
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
@@ -24,9 +25,9 @@ export default {}
     font-size: 23px;
   }
   .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
   }
 }
 </style>

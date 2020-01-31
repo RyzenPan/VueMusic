@@ -2,7 +2,12 @@
   <div class="main">
     <h3 class="title">推荐歌单</h3>
     <div class="list">
-      <div class="listItem" v-for="(item,index) in personalized" :key="index" @click="$router.push({path:'/songList',query:{id:item.id}})">
+      <div
+        class="listItem"
+        v-for="(item,index) in personalized"
+        :key="index"
+        @click="$router.push({path:'/songList',query:{id:item.id}})"
+      >
         <div class="pic">
           <img :src="item.picUrl" alt />
           <span class="iconfont icon-Headphoneerji">{{Math.floor(item.playCount/10000)}}万</span>
@@ -25,17 +30,17 @@
 
 <script>
 export default {
-    props:{
-        newsong:{
-            type:Array,
-            default:[]
-        },
-        personalized:{
-            type:Array,
-            default:[]
-        }
+  props: {
+    newsong: {
+      type: Array,
+      default: []
+    },
+    personalized: {
+      type: Array,
+      default: []
     }
-}
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -47,14 +52,14 @@ export default {
     font-weight: bold;
   }
   .list {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     padding: 0 5px;
     .listItem {
-        margin-bottom: 10px;
+      margin-bottom: 10px;
       .pic {
-          position: relative;
+        position: relative;
         img {
           width: 116 * 100vw / 375;
           height: 116 * 100vw / 375;
@@ -63,7 +68,7 @@ export default {
       .content {
         font-size: 11 * 100vw / 375;
         max-width: 116 * 100vw / 375;
-        line-height: 16* 100vw / 375;
+        line-height: 16 * 100vw / 375;
         display: block;
         word-break: break-all;
       }
@@ -71,10 +76,10 @@ export default {
   }
 }
 .iconfont {
-    font-size: 10* 100vw / 375;
-    color: #fff;
-    position: absolute;;
-    top: 5px;
-    right: 5px;
+  font-size: 10 * 100vw / 375;
+  color: #fff;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 </style>
