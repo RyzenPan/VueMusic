@@ -47,19 +47,24 @@ export default {
     }
   },
   mounted () {
-    
+    this.getLikeList()
   },
   methods:{
     getHistoryList(){
       this.List = this.$store.state.playList
     },
+    getLikeList(){
+      this.List = this.$store.state.likeList
+    },
     switchHistory(){
+      this.List = []
       this.getHistoryList()
       this.active = 1
     },
     switchLike(){
       this.List = []
-            this.active = 0
+      this.getLikeList()
+      this.active = 0
     },
     goPlaying(id) {
       this.$router.push({ path: '/play', query: { id } })

@@ -1,49 +1,63 @@
 <template>
-  <div class="songList">
-    <div class="header" :style="`background-color: rgba(212, 68, 57, ${titleTran});`">
-      <van-icon name="arrow-left" class="backIcon" @click="$router.go(-1)" />
-      <span class="title">{{scrollTop > 200 ? songListData.name : '歌单'}}</span>
-    </div>
-    <div class="cover">
-      <div
-        class="pic"
-        :style="`background: url('${songListData.coverImgUrl}') no-repeat;background-size: cover;`"
-      >
-        <div class="filter"></div>
+  <div>
+    <div class="songList" v-show="toggleSongList">
+      <div class="header" :style="`background-color: rgba(212, 68, 57, ${titleTran});`">
+        <van-icon name="arrow-left" class="backIcon" @click="$router.go(-1)" />
+        <span class="title">{{scrollTop > 200 ? songListData.name : '歌单'}}</span>
       </div>
-      <div class="songTitle">
-        <span class="songTitle_title">{{songListData.name}}</span>
-        <div class="songTitle_playNum">
-          <van-icon name="audio" />
-          <span style="margin-left:3px;">{{Math.floor(songListData.playCount/10000)}}万</span>
+      <div class="cover">
+        <div
+          class="pic"
+          :style="`background: url('${songListData.coverImgUrl}') no-repeat;background-size: cover;`"
+        >
+          <div class="filter"></div>
+        </div>
+        <div class="songTitle">
+          <span class="songTitle_title">{{songListData.name}}</span>
+          <div class="songTitle_playNum">
+            <van-icon name="audio" />
+            <span style="margin-left:3px;">{{Math.floor(songListData.playCount/10000)}}万</span>
+          </div>
+        </div>
+      </div>
+      <div class="songMain">
+        <div class="sequence-play">
+          <van-icon name="play" class="playIcon" />
+          <div class="playAll">播放全部</div>
+          <span>(共135首)</span>
+        </div>
+        <div
+          class="songList-item"
+          v-for="(item,index) in songListData.tracks"
+          :key="item.id"
+          @click="goPlaying(item.id)"
+        >
+          <div class="count">{{index+1}}</div>
+          <div class="content">
+            <h2 class="name">{{item.name}}</h2>
+            <p class="desc">{{item.ar[0].name}}</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="songMain">
-      <div class="sequence-play">
-        <van-icon name="play" class="playIcon" />
-        <div class="playAll">播放全部</div>
-        <span>(共135首)</span>
-      </div>
-      <div class="songList-item" v-for="(item,index) in songListData.tracks" :key="item.id" @click="goPlaying(item.id)">
-        <div class="count">{{index+1}}</div>
-        <div class="content">
-          <h2 class="name">{{item.name}}</h2>
-          <p class="desc">{{item.ar[0].name}}</p>
-        </div>
-      </div>
-    </div>
+    <Playing :songInfo="songInfo" @showList="showList" />
   </div>
 </template>
 
 <script>
 import { getSongList } from '../api/song'
+import Playing from './Playing'
 export default {
+  components: {
+    Playing
+  },
   data() {
     return {
       songListData: {},
       titleTran: 0,
-      scrollTop:0
+      scrollTop: 0,
+      toggleSongList: true,
+      songInfo: false
     }
   },
   watch: {
@@ -56,6 +70,10 @@ export default {
     window.addEventListener('scroll', this.showIcon)
   },
   methods: {
+    showList(boo){
+      console.log(11);
+      this.toggleSongList = boo
+    },
     async getSongListData() {
       const res = await getSongList(this.$route.query.id)
       console.log(res)
@@ -65,8 +83,12 @@ export default {
       this.scrollTop = document.documentElement.scrollTop
       this.titleTran = this.scrollTop / 350
     },
-    goPlaying(id){
-      this.$router.push({path:"/play",query:{id}})
+    goPlaying(id) {
+      this.$router.push({query:{id}})
+      this.toggleSongList = false
+      this.songInfo = true
+      console.log(this.songInfo)
+      this.$store.commit('nowPlayID', id)
     }
   }
 }

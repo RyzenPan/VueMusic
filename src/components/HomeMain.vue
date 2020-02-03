@@ -17,7 +17,7 @@
     </div>
     <h3 class="title">推荐歌曲</h3>
     <div class="list">
-      <div class="listItem" v-for="(item,index) in newsong" :key="index">
+      <div class="listItem" v-for="(item,index) in newsong" :key="index" @click="$router.push({path:'/songList',query:{id:item.id}})">
         <div class="pic">
           <img :src="item.picUrl" alt />
           <span class="iconfont icon-Headphoneerji">{{Math.floor(item.playCount/10000)}}万</span>

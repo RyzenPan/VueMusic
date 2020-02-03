@@ -1,6 +1,6 @@
 <template>
   <div class="Ranking">
-    <div class="Ranking_item row" v-for="(item, index) in ranklist" :key="index" v-if="index<4">
+    <div class="Ranking_item row" v-for="(item, index) in ranklist" :key="index" v-if="index<4" @click="gotoDetail(item.id)">
       <div class="left">
         <img :src="item.coverImgUrl" style="width:100px;height:100px" alt />
       </div>
@@ -21,6 +21,12 @@ export default {
   },
   mounted() {
     console.log(this.ranklist);
+  },
+  methods:{
+    gotoDetail(id){
+      console.log(id);
+      this.$router.push({path:'/songList',query:{id}})
+    }
   }
 };
 </script>

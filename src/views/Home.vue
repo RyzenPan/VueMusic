@@ -60,7 +60,6 @@ export default {
     async getBannerData() {
       const res = await getBanner();
       this.bannerDate = res.data.banners;
-      console.log(res.data.banners);
     },
     async getSongData() {
       const res = await getPersonalized();

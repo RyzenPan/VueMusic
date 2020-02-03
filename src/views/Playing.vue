@@ -1,7 +1,8 @@
 <template>
-  <div class="play">
+<div>
+  <div class="play" v-show="hiddenPlay">
     <header>
-      <div class="iconfont icon-jiantouarrow483" @click="$router.go(-1)"></div>
+      <div class="iconfont icon-jiantouarrow483" @click="hidden"></div>
       <div class="title">
         <h3>{{songData.name}}</h3>
         <span>{{artist}}</span>
@@ -30,7 +31,7 @@
         @click="togglePlay"
       ></span>
       <span class="iconfont icon-Nextxiayiqu" @click="nextSong"></span>
-      <span class="iconfont icon-Likexihuan"></span>
+      <span class="iconfont icon-Likexihuan" :class="{'likeActive':likeActive}" @click="likeMusic"></span>
     </div>
     <audio
       :src="songLink"
@@ -40,11 +41,19 @@
       @timeupdate="timeUpdate"
     ></audio>
   </div>
+  <van-icon name="music" class="switchIcon" @click="showPlay" v-show="ListShow"/>
+  </div>
 </template>
 
 <script>
-import { getSongInfo,getSongUrl } from '../api/song'
+import { getSongInfo, getSongUrl } from '../api/song'
 export default {
+  props:{
+    songInfo:{
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       audioPlay: null,
@@ -53,30 +62,57 @@ export default {
       currentTime: '00:00',
       totalTimeSecond: 0,
       process: 0,
-      artist:'',
-      songData:{
-          al:{},
-          name
+      artist: '',
+      songData: {
+        al: {},
+        name
       },
-      songLink:''
+      songLink: '',
+      likeActive: false,
+      Likelist: [],
+      playlist:[],
+      hiddenPlay:false,
+      ListShow:false
+    }
+  },
+  watch:{
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+      console.log(to.query.id);
+          this.getSongData(to.query.id)
+    this.getSongLink(to.query.id)
+    this.hiddenPlay = true
     }
   },
   mounted() {
     this.audioPlay = this.$refs.audioPlay
-    this.getSongData(this.$route.query.id)
-    this.getSongLink(this.$route.query.id)
+    this.getSongData(this.$store.state.nowPlay)
+    this.getSongLink(this.$store.state.nowPlay)
     this.getTotal()
+    this.checkLike()
+      console.log(this.songInfo);
   },
   methods: {
+    showPlay(){
+      this.hiddenPlay = true
+      this.ListShow = false
+      this.$emit('showList',this.ListShow)
+    },
+    hidden(){
+      this.hiddenPlay = false
+      this.ListShow = true
+      this.$emit('showList',this.ListShow)
+    },
     async getSongData(id) {
       const res = await getSongInfo(id)
+      if (res.data.songs.length === 0) return this.$toast('加载失败...')
       this.songData = res.data.songs[0]
       this.artist = res.data.songs[0].ar[0].name
-      console.log(res);
+      this.$store.commit('saveList', this.songData)
     },
     async getSongLink(id) {
       const res = await getSongUrl(id)
-    //   console.log(res)
+      if (res.data.data[0].url === null) return
       this.songLink = res.data.data[0].url
     },
     togglePlay() {
@@ -95,6 +131,7 @@ export default {
       return `${minute}:${second}`
     },
     getTotal() {
+      if (isNaN(this.audioPlay.duration)) return
       this.totalTime = this.timeFormat(this.audioPlay.duration)
       this.totalTimeSecond = this.audioPlay.duration
     },
@@ -102,10 +139,38 @@ export default {
       this.currentTime = this.timeFormat(this.audioPlay.currentTime)
       this.process = (this.audioPlay.currentTime / this.totalTimeSecond) * 100
     },
-    nextSong(){
-        
-    // this.getSongData(this.$route.query.id)
-    // this.getSongLink(this.$route.query.id)
+    nextSong() {
+      // this.playlist = this.$store.state.playList
+      // console.log(this.playlist[1].id);
+      // this.$router.push({ path: '/play', query: { id:this.playlist[1].id } })
+    },
+    likeMusic() {
+      if (this.Likelist.length === 0) {
+        this.$store.commit('saveLikeList', this.songData)
+      } else {
+        for (let i = 0; i <= this.Likelist.length; i++) {
+          if (this.Likelist[i].id === +this.$route.query.id) {
+            this.$store.commit('delLikeList', this.songData)
+            this.likeActive = !this.likeActive
+            return
+          } else {
+            this.$store.commit('saveLikeList', this.songData)            
+            this.likeActive = !this.likeActive
+            return
+          }
+        }
+      }
+      this.likeActive = !this.likeActive
+    },
+    checkLike() {
+      this.Likelist = this.$store.state.likeList
+      for (let i = 0; i <= this.Likelist.length; i++) {
+        if (this.Likelist[i].id === +this.$route.query.id) {
+          return (this.likeActive = true)
+        } else {
+          return
+        }
+      }
     }
   }
 }
@@ -114,7 +179,7 @@ export default {
 <style lang="less" scoped>
 .play {
   background: #666869;
-  height: 100%;
+  height: 100vh;
   header {
     padding: 0 15px;
     height: 50px;
@@ -213,5 +278,16 @@ export default {
   .playStatus {
     font-size: 55px;
   }
+}
+
+.likeActive {
+  color: #d44439;
+}
+.switchIcon {
+  font-size: 50px;
+  color: #d44439;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 </style>
